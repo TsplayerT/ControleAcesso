@@ -1,0 +1,24 @@
+﻿<componente:_ComponenteBase
+     xmlns="http://xamarin.com/schemas/2014/forms"
+     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+     xmlns:componente="clr-namespace:ControleAcesso.Controle.Componente"
+     xmlns:forms="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+     x:Class="ControleAcesso.Controle.Componente.Imagem"
+     Scale="{Binding Escala}"
+     Arredondamento="{Binding Arredondamento}"
+     HorizontalOptions="Start"
+     VerticalOptions="Center"
+     IsVisible="{Binding Visivel}"
+     IsEnabled="{Binding Habilitado}">
+
+    <forms:SvgCachedImage
+        IsVisible="{Binding Visivel}"
+        HeightRequest="{Binding Tamanho}"
+        WidthRequest="{Binding Tamanho}"
+        VerticalOptions="Center"
+        HorizontalOptions="Start"
+        Source="{Binding Url}"
+        IsEnabled="{Binding Habilitado}"
+        BackgroundColor="{Binding CorFundoAtual}"
+        Transformations="{Binding ListaTransformacoes}"/>
+</componente:_ComponenteBase>

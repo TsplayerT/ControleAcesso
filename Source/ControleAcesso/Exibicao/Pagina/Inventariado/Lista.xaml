@@ -1,0 +1,50 @@
+﻿<pagina:_PaginaBase xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ControleAcesso.Controle.Pagina.Inventariado.Lista"
+             xmlns:componente="clr-namespace:ControleAcesso.Controle.Componente"
+             xmlns:pagina="clr-namespace:ControleAcesso.Controle"
+             xmlns:utilidade="clr-namespace:ControleAcesso.Utilidade">
+
+    <pagina:_PaginaBase.Content>
+        <StackLayout
+            Margin="10, 10, 10, 10">
+
+        <!--
+        <componente:Busca
+            Complemento="inventário"
+            ComecarHabilitado="False"
+            VisualizadorListaAlvo="{x:Reference Name=ListaInventario}">
+        </componente:Busca>
+        <componente:Periodo
+            Margin="0, 0, 0, 5"
+            ComecarHabilitado="False"
+            VisualizadorListaAlvo="{x:Reference Name=ListaInventario}">
+        </componente:Periodo>
+        -->
+        <CollectionView
+            x:Name="ListaInventario"
+            SelectedItem="{Binding ItemSelecionado}"
+            ItemsSource="{Binding ListaItens}">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <ContentView>
+                            <componente:ItemDescricao
+                                AlinhamentoInterno="{Binding AlinhamentoInterno}"
+                                AlinhamentoExterno="{Binding AlinhamentoExterno}"
+                                BindingContext="{Binding .}"/>
+                        </ContentView>
+                    </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <componente:Botao
+            x:Name="BotaoVoltar"
+            Margin="0, 0, 0, 10"
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="EndAndExpand"
+            Texto="Voltar"
+            ImagemUrl="{x:Static utilidade:Constantes.ImagemVoltar}"/>
+        </StackLayout>
+    </pagina:_PaginaBase.Content>
+</pagina:_PaginaBase>

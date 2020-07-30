@@ -1,0 +1,32 @@
+﻿<componente:_ComponenteBase
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:componente="clr-namespace:ControleAcesso.Controle.Componente"
+    x:Class="ControleAcesso.Controle.Componente.CaixaMarcacao"
+    HorizontalOptions="FillAndExpand"
+    AlinhamentoExterno="0, -5, -5, 0"
+    AlinhamentoInterno="5, 10, 5, 10">
+
+    <StackLayout
+        Orientation="Horizontal"
+        BackgroundColor="{Binding FundoCorAtual}">
+
+        <StackLayout.GestureRecognizers>
+            <TapGestureRecognizer
+                Tapped="TapGestureRecognizer_OnTapped"/>
+        </StackLayout.GestureRecognizers>
+
+        <CheckBox
+            IsChecked="{Binding Marcado}"
+            Color="{Binding TextoCor}"
+            BackgroundColor="{Binding FundoCorAtual}"
+            CheckedChanged="CheckBox_OnCheckedChanged"/>
+        <Label
+            Margin="-5, 0, 0, 0"
+            Text="{Binding Texto}"
+            TextColor="{Binding TextoCor}"
+            FontSize="{Binding TamanhoTexto}"
+            VerticalOptions="Center"/>
+    </StackLayout>
+
+</componente:_ComponenteBase>

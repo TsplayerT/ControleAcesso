@@ -1,0 +1,63 @@
+﻿<pagina:_PaginaBase xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:componente="clr-namespace:ControleAcesso.Controle.Componente"
+             xmlns:utilidade="clr-namespace:ControleAcesso.Utilidade"
+             xmlns:pagina="clr-namespace:ControleAcesso.Controle"
+             x:Class="ControleAcesso.Controle.Pagina.Inventariado.PesquisarItem.Pesquisar">
+
+    <pagina:_PaginaBase.Content>
+        <ScrollView>
+            <StackLayout
+                Margin="10, 10, 10, 0"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand">
+
+                <componente:Grade
+                    x:Name="GradeStatus"
+                    AlinhamentoExterno="0, 0, 0, 0"
+                    Titulo="Status"/>
+
+                <componente:Periodo
+                    x:Name="CampoPeriodo"
+                    AlinhamentoExterno="0, 0, 0, 0"
+                    Titulo="Período"
+                    BotaoPesquisarVisivel="False"/>
+                <componente:AutoCompletarAdicional
+                    x:Name="CampoFilial"
+                    AlinhamentoExterno="0, 1, 0, 0"
+                    OpcoesImagemUrl="{x:Static utilidade:Constantes.ImagemPesquisar}"
+                    SelecionarAutomaticamenteSugestaoUnica="False"
+                    Titulo="Filial" />
+                <componente:AutoCompletarAdicional
+                    x:Name="CampoLocal"
+                    AlinhamentoExterno="0, 1, 0, 0"
+                    SelecionarAutomaticamenteSugestaoUnica="False"
+                    OpcoesImagemUrl="{x:Static utilidade:Constantes.ImagemPesquisar}"
+                    Titulo="Local" />
+                <componente:AutoCompletarAdicional
+                    x:Name="CampoResponsavel"
+                    AlinhamentoExterno="0, 1, 0, 0"
+                    SelecionarAutomaticamenteSugestaoUnica="False"
+                    OpcoesImagemUrl="{x:Static utilidade:Constantes.ImagemPesquisar}"
+                    Titulo="Responsável" />
+
+                <StackLayout
+                    Margin="0, -5, 0, 5"
+                    Orientation="Horizontal"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="EndAndExpand">
+
+                    <componente:Botao
+                        x:Name="BotaoVoltar"
+                        Texto="Voltar"
+                        ImagemUrl="{x:Static utilidade:Constantes.ImagemVoltar}"/>
+                    <componente:Botao
+                        x:Name="BotaoPesquisar"
+                        Texto="Pesquisar"
+                        FundoCorPadrao="{x:Static utilidade:Constantes.CorVerdeBonito}"
+                        ImagemUrl="{x:Static utilidade:Constantes.ImagemPesquisar}"/>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </pagina:_PaginaBase.Content>
+</pagina:_PaginaBase>

@@ -1,0 +1,47 @@
+﻿<componente:_ComponenteBase 
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:componente="clr-namespace:ControleAcesso.Controle.Componente"
+             xmlns:forms="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             x:Class="ControleAcesso.Controle.Componente.Botao"
+             Scale="{Binding Escala}"
+             AlinhamentoInterno="20, 25, 30, 25"
+             AlinhamentoExterno="0, 1, 0, 0"
+             HorizontalOptions="Start"
+             VerticalOptions="Center">
+
+    <StackLayout
+        Orientation="Horizontal"
+        HorizontalOptions="FillAndExpand"
+        BackgroundColor="{Binding FundoCorAtual}">
+
+        <forms:SvgCachedImage
+            Margin="5, 0, 5, 0"
+            VerticalOptions="End"
+            HorizontalOptions="End"
+            HeightRequest="{Binding ImagemTamanho}"
+            WidthRequest="{Binding ImagemTamanho}"
+            Source="{Binding ImagemUrl}"
+            IsVisible="{Binding ImagemVisivel}"
+            IsEnabled="{Binding Habilitado}"
+            BackgroundColor="{Binding CorFundoAtual}"
+            Transformations="{Binding ListaTransformacoes}"/>
+
+        <ActivityIndicator
+            VerticalOptions="End"
+            HorizontalOptions="End"
+            HeightRequest="{Binding ImagemTamanho}"
+            WidthRequest="{Binding ImagemTamanho}"
+            Color="{Binding ImagemCor}"
+            IsRunning="{Binding Carregando}"
+            IsVisible="{Binding Carregando}"/>
+        <Label
+            VerticalOptions="Center"
+            HorizontalOptions="Start"
+            HorizontalTextAlignment="Start"
+            VerticalTextAlignment="Start"
+            TextColor="White"
+            Text="{Binding Texto}"
+            FontSize="{Binding TextoTamanho}"/>
+    </StackLayout>
+</componente:_ComponenteBase>

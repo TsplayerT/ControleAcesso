@@ -1,0 +1,18 @@
+﻿<Label 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ControleAcesso.Controle.Componente.Rotulo"
+    x:Name="Componente"
+    x:FieldModifier="public"
+    IsVisible="False"
+    VerticalOptions="Start"
+    HorizontalOptions="Start"
+    VerticalTextAlignment="Start"
+    HorizontalTextAlignment="Start">
+
+    <Label.GestureRecognizers>
+        <TapGestureRecognizer
+            Tapped="TapGestureRecognizer_OnTapped"/>
+    </Label.GestureRecognizers>
+
+</Label>

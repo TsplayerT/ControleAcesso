@@ -1,0 +1,18 @@
+﻿<Frame 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ControleAcesso.Controle.Componente._ComponenteBase"
+    x:Name="Componente"
+    x:FieldModifier="public"
+    Padding="{Binding AlinhamentoInterno}"
+    Margin="{Binding AlinhamentoExterno}"
+    BackgroundColor="{Binding FundoCorAtual}"
+    CornerRadius="{Binding Arredondamento}"
+    IsEnabled="{Binding Habilitado}">
+
+    <Frame.GestureRecognizers>
+        <TapGestureRecognizer
+            Tapped="TapGestureRecognizer_OnTapped"/>
+    </Frame.GestureRecognizers>
+
+</Frame>

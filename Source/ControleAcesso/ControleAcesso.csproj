@@ -1,0 +1,192 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Platforms>AnyCPU;x64</Platforms>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;NU170;NU1605;CA1707;IDE1006;IDE1724;CA1724;CA1822;</NoWarn>
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
+    <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
+    <DefineConstants></DefineConstants>
+    <Optimize>true</Optimize>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Recurso\Imagens\background.png" />
+    <None Remove="Recurso\Imagens\logo.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AsyncEnumerator" Version="4.0.2" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="1.1.1" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Plugin.Permissions" Version="6.0.1" />
+    <PackageReference Include="System.Interactive.Async" Version="4.1.1" />
+    <PackageReference Include="System.Linq.Async" Version="4.1.1" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
+    <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.FFImageLoading.Svg" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.FFImageLoading.Svg.Forms" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.Forms" Version="4.7.0.1179" />
+    <PackageReference Include="ZXing.Net.Mobile" Version="2.4.1" />
+    <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Recurso\Imagens\angle_double_right.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\arrow_right.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\at.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\background.png" />
+    <EmbeddedResource Include="Recurso\Imagens\barcode.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\building.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\calendar.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\calendar_alt.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\check.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\cube.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\download.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\ellipsis_v.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\exchange_alt.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\eye.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\eye_slash.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\file_alt.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\hammer.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\hockey_puck.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\id_card.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\list_alt.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\lock.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\logo.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\map_pin.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\plus.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\power_off.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\qrcode.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\reply_all.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\save.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\search.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\share_square.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\sign_in_alt.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\sync.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\file_import.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\times.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\upload.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\file_powerpoint.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Xamarin.Android.Arch.Lifecycle.ViewModel">
+      <HintPath>C:\Microsoft\Xamarin\NuGet\xamarin.android.arch.lifecycle.viewmodel\1.1.1.3\lib\monoandroid90\Xamarin.Android.Arch.Lifecycle.ViewModel.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Exibicao\Componente\Busca.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Exibicao\Componente\Entrada.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Exibicao\Componente\Rotulo.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Exibicao\Navegacao\Estrutura.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Exibicao\Pagina\Backup do Dia.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Exibicao\Pagina\Complemento\LeituraCodigo.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Exibicao\Pagina\Complemento\PaginaTemporaria.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Exibicao\Pagina\PesquisarItem\Resultado.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Exibicao\Pagina\Inventariado\Lista.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Exibicao\Pagina\OrdemServico\ListaMotivo.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Exibicao\App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Exibicao\Componente\Botao.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Exibicao\Componente\Busca.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Exibicao\Componente\Entrada.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Exibicao\Login.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Exibicao\Navegacao\Estrutura.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Exibicao\Navegacao\MenuLateral.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Exibicao\Navegacao\Principal.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Exibicao\Pagina\Entrada\ListaEmpresa.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Exibicao\Pagina\Entrada\Opcoes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Exibicao\Pagina\Inicio.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Exibicao\Pagina\Inventario\Cadastro.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Exibicao\Pagina\Inventario\Lista.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Exibicao\Pagina\Movimentacao\Cadastro.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Exibicao\Pagina\Movimentacao\Destino.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Exibicao\Pagina\Movimentacao\Finalizacao.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Exibicao\Pagina\Movimentacao\Lista.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Exibicao\Pagina\Movimentacao\Origem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Exibicao\Pagina\Movimentacao\Tipo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Login.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
+</Project>

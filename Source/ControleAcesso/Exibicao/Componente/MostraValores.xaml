@@ -1,0 +1,41 @@
+﻿<componente:_ComponenteBase
+            xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="ControleAcesso.Controle.Componente.MostraValores"
+            xmlns:componente="clr-namespace:ControleAcesso.Controle.Componente"
+            AlinhamentoExterno="0, 1, 0, 0"
+            AlinhamentoInterno="0, 1, 0, 0">
+
+    <StackLayout
+        VerticalOptions="Start"
+        HorizontalOptions="FillAndExpand"
+        BackgroundColor="{Binding FundoCorAtual}">
+
+        <componente:Rotulo
+            Margin="15, 12, 0, 0"
+            Text="{Binding Titulo}"
+            TextColor="{Binding TituloCor}"
+            FontSize="{Binding TamanhoTitulo}"/>
+        <CollectionView
+            Margin="10, 0, 10, 10"
+            VerticalOptions="Start"
+            HorizontalOptions="FillAndExpand"
+            SelectionMode="None"
+            VerticalScrollBarVisibility="Never"
+            ItemsSource="{Binding ListaSugestoes}"
+            BackgroundColor="{Binding FundoCorAtual}"
+            HeightRequest="{Binding AlturaListaValores}">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <ContentView>
+                        <componente:ItemDescricao
+                            AlinhamentoInterno="{Binding AlinhamentoInterno}"
+                            AlinhamentoExterno="{Binding AlinhamentoExterno}"
+                            BindingContext="{Binding .}"/>
+                    </ContentView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+</componente:_ComponenteBase>

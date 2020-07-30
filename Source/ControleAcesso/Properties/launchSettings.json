@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ControleAcesso": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

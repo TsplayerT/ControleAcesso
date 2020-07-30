@@ -1,0 +1,73 @@
+﻿<componente:_ComponenteBase 
+             xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:componente="clr-namespace:ControleAcesso.Controle.Componente"
+             xmlns:ffImageLoading="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             xmlns:utilidade="clr-namespace:ControleAcesso.Utilidade;assembly=ControleAcesso"
+             x:Class="ControleAcesso.Controle.Componente.Entrada">
+
+    <StackLayout
+        Margin="-5, -10, 0, -10"
+        BackgroundColor="{Binding FundoCorAtual}"
+        VerticalOptions="FillAndExpand"
+        HorizontalOptions="FillAndExpand">
+
+        <componente:Rotulo
+            Text="{Binding Titulo}"
+            TextColor="{Binding TituloCor}"
+            FontSize="{Binding TituloTamanho}"/>
+        <StackLayout
+            Orientation="Horizontal"
+            BackgroundColor="{Binding FundoCorAtual}"
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand">
+
+            <ffImageLoading:SvgCachedImage
+                Margin="0, 0, -5, 0"
+                IsVisible="{Binding ImagemVisivel}"
+                HeightRequest="{Binding ImagemTamanho}"
+                WidthRequest="{Binding ImagemTamanho}"
+                VerticalOptions="Center"
+                HorizontalOptions="Start"
+                Source="{Binding ImagemUrl}"
+                BackgroundColor="{Binding FundoCorAtual}"
+                Transformations="{Binding ListaTransformacoes}"/>
+           
+            <utilidade:CustomEntry
+                x:Name="CampoEntrada"
+                IsNumeric="{Binding TecladoEspecial}"
+                Keyboard="{Binding Teclado}"
+                VerticalOptions="Center"
+                HorizontalOptions="FillAndExpand"
+                HorizontalTextAlignment="Start"
+                TextColor="{Binding TextoCor}"
+                Text="{Binding Texto}"
+                IsEnabled="{Binding EntradaHabilitada}"
+                FontSize="{Binding TextoTamanho}"
+                IsPassword="{Binding SenhaVisivel}"
+                Placeholder="{Binding TextoMarca}"
+                PlaceholderColor="{Binding TextoMarcaCor}"
+                BackgroundColor="{Binding FundoCorAtual}"
+                TextChanged="CampoEntrada_OnTextChanged"
+                Unfocused="CampoEntrada_OnUnfocused"/>
+
+            <ffImageLoading:SvgCachedImage
+                Scale="1.5"
+                Margin="5, 0, 5, 0"
+                HorizontalOptions="End"
+                VerticalOptions="Center"
+                IsVisible="{Binding CampoSenha}"
+                Source="{Binding ImagemVerSenhaUrl}"
+                BackgroundColor="{Binding FundoCorAtual}"
+                WidthRequest="{Binding ImagemVerSenhaTamanho}"
+                HeightRequest="{Binding ImagemVerSenhaTamanho}"
+                Transformations="{Binding ListaTransformacoes}">
+
+                <ffImageLoading:SvgCachedImage.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Tapped="TapGestureRecognizer_OnTapped"/>
+                </ffImageLoading:SvgCachedImage.GestureRecognizers>
+        </ffImageLoading:SvgCachedImage>
+        </StackLayout>
+    </StackLayout>
+</componente:_ComponenteBase>

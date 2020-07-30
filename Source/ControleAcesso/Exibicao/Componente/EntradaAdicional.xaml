@@ -1,0 +1,50 @@
+﻿<componente:_ComponenteBaseAdicional
+             xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ControleAcesso.Controle.Componente.EntradaAdicional"
+             xmlns:componente="clr-namespace:ControleAcesso.Controle.Componente"
+             xmlns:utilidade="clr-namespace:ControleAcesso.Utilidade">
+
+    <StackLayout
+        Margin="-5, -10, 0, -17"
+        VerticalOptions="Start"
+        HorizontalOptions="FillAndExpand"
+        BackgroundColor="{Binding FundoCorAtual}">
+
+        <componente:Rotulo
+            Text="{Binding Titulo}"
+            TextColor="{Binding TituloCor}"
+            FontSize="{Binding TamanhoTitulo}"/>
+        <StackLayout
+            Margin="0, -10, 0, 0"
+            VerticalOptions="Start"
+            Orientation="Horizontal"
+            HorizontalOptions="FillAndExpand">
+
+            <Entry
+                x:Name="CampoEntrada"
+                Keyboard="{Binding Teclado}"
+                VerticalOptions="Center"
+                HorizontalOptions="FillAndExpand"
+                HorizontalTextAlignment="Start"
+                IsEnabled="{Binding EntradaHabilitada}"
+                Text="{Binding Texto}"
+                TextColor="{Binding TextoCor}"
+                FontSize="{Binding TextoTamanho}"
+                Placeholder="{Binding TextoMarca}"
+                PlaceholderColor="{Binding TextoMarcaCor}"
+                BackgroundColor="{Binding FundoCorAtual}"
+                Focused="CampoEntrada_OnFocused"
+                Unfocused="CampoEntrada_OnUnfocused"/>
+            <componente:Imagem
+                x:Name="Opcoes"
+                x:FieldModifier="public"
+                Margin="-3, 0, -5, 0"
+                HorizontalOptions="End"
+                VerticalOptions="Center"
+                Visivel="{Binding OpcoesVisivel}"
+                IsVisible="{Binding OpcoesVisivel}"
+                Url="{x:Static utilidade:Constantes.ImagemOpcoes}"/>
+        </StackLayout>
+    </StackLayout>
+</componente:_ComponenteBaseAdicional>

@@ -1,0 +1,67 @@
+﻿<componente:_ComponenteBase xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ffImageLoading="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             xmlns:componente="clr-namespace:ControleAcesso.Controle.Componente"
+             x:Class="ControleAcesso.Controle.Componente.ItemDescricao"
+             TextoTamanho="16.0"
+             Arredondamento="10"
+             AlinhamentoInterno="20, 15, 0, 15"
+             AlinhamentoExterno="0, 0, 0, 10">
+
+    <StackLayout
+        Orientation="Horizontal"
+        VerticalOptions="StartAndExpand"
+        HorizontalOptions="FillAndExpand"
+        BackgroundColor="{Binding FundoCorAtual}"
+        IsEnabled="{Binding Habilitado}">
+
+        <ffImageLoading:SvgCachedImage
+            IsVisible="{Binding ImagemVisivel}"
+            HeightRequest="{Binding ImagemAltura}"
+            WidthRequest="{Binding ImagemLargura}"
+            VerticalOptions="Center"
+            HorizontalOptions="Start"
+            Source="{Binding ImagemUrl}"
+            BackgroundColor="{Binding FundoCorAtual}"
+            IsEnabled="{Binding Habilitado}"
+            Transformations="{Binding ListaTransformacoes}"/>
+
+        <ActivityIndicator
+            VerticalOptions="Start"
+            HeightRequest="{Binding CarregandoTamanho}"
+            WidthRequest="{Binding CarregandoTamanho}"
+            Color="{Binding CarregandoCor}"
+            IsRunning="{Binding Carregando}"
+            IsVisible="{Binding Carregando}"/>
+
+        <StackLayout
+            VerticalOptions="End"
+            HorizontalOptions="Start"
+            BackgroundColor="{Binding FundoCorAtual}"
+            IsEnabled="{Binding Habilitado}">
+
+            <Label
+                VerticalOptions="Start"
+                HorizontalOptions="Start"
+                HorizontalTextAlignment="Start"
+                VerticalTextAlignment="{Binding TextoAlinhamentoVertical}"
+                TextColor="{Binding TextoCor}"
+                Text="{Binding Texto}"
+                FontSize="{Binding TextoTamanho}"
+                BackgroundColor="{Binding FundoCorAtual}"
+                IsEnabled="{Binding Habilitado}"/>
+            <Label
+                Margin="0, -5, 0, 0"
+                VerticalOptions="Start"
+                HorizontalOptions="Start"
+                HorizontalTextAlignment="Start"
+                VerticalTextAlignment="Start"
+                TextColor="{Binding DescricaoCor}"
+                Text="{Binding Descricao}"
+                FontSize="{Binding DescricaoTamanho}"
+                BackgroundColor="{Binding FundoCorAtual}"
+                IsEnabled="{Binding Habilitado}"
+                IsVisible="{Binding DescricaoVisivel}"/>
+        </StackLayout>
+    </StackLayout>
+</componente:_ComponenteBase>

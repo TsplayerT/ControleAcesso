@@ -1,0 +1,26 @@
+﻿<componente:_ComponenteBase
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:componente="clr-namespace:ControleAcesso.Controle.Componente"
+             x:Class="ControleAcesso.Controle.Componente.Busca"
+             AlinhamentoInterno="10, 0, 10, 5"
+             AlinhamentoExterno="0, 1, 0, 0"
+             IsEnabled="{Binding Habilitado}">
+
+    <StackLayout
+        Orientation="Horizontal"
+        HorizontalOptions="FillAndExpand">
+
+        <Entry
+            BackgroundColor="{Binding FundoCorAtual}"
+            Placeholder="{Binding TextoMarca}"
+            PlaceholderColor="{Binding TextoMarcaCor}"
+            HorizontalOptions="FillAndExpand"
+            Text="{Binding Texto}"
+            TextChanged="Busca_OnTextChanged"
+            IsEnabled="{Binding Habilitado}"/>
+        <componente:Imagem
+            Url="{Binding ImagemUrlAtual}"
+            IsEnabled="{Binding Habilitado}"/>
+        </StackLayout>
+</componente:_ComponenteBase>
