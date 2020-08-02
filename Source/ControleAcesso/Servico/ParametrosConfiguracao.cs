@@ -21,7 +21,6 @@ namespace ControleAcesso.Servico
             TokenCancelamento = CancellationToken.None;
             ListaMostrarMensagensErro = new List<Enumeradores.TipoMostrarMensagensErro>
             {
-                Enumeradores.TipoMostrarMensagensErro.Conexao,
                 Enumeradores.TipoMostrarMensagensErro.Gerenciador
             };
         }

@@ -1,0 +1,53 @@
+﻿<pagina:_PaginaBase xmlns="http://xamarin.com/schemas/2014/forms"
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          x:Class="ControleAcesso.Controle.Pagina.ConsultarIngresso"
+          xmlns:componente="clr-namespace:ControleAcesso.Controle.Componente"
+          xmlns:utilidade="clr-namespace:ControleAcesso.Utilidade"
+          xmlns:pagina="clr-namespace:ControleAcesso.Controle"
+          xmlns:forms="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms">
+
+    <pagina:_PaginaBase.Content>
+        <StackLayout
+            x:Name="Leiaute"
+            Margin="10, 10, 10, 10"
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand">
+
+            <forms:SvgCachedImage
+                Margin="60, 0, 60, 40"
+                Source="{x:Static utilidade:Constantes.ImagemLogo}"/>
+
+            <Label
+                Margin="0, 0, 0, 50"
+                Text="O que deseja realizar?"
+                TextColor="{x:Static utilidade:Constantes.CorPadrao}"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="CenterAndExpand"/>
+
+            <componente:EntradaAdicional
+                x:Name="CampoNumeroIngresso"
+                HorizontalOptions="FillAndExpand"
+                Titulo="Número do Ingresso"
+                Teclado="Default"
+                TituloCor="{x:Static utilidade:Constantes.CorPadrao}"
+                TextoCor="{x:Static utilidade:Constantes.CorPadrao}"
+                OpcoesImagemUrl="{x:Static utilidade:Constantes.ImagemPesquisar}"/>
+            <componente:Botao
+                x:Name="BotaoLerCodigoQr"
+                HorizontalOptions="FillAndExpand"
+                Texto="Ler código QR do Ingresso"
+                TextoCor="{x:Static utilidade:Constantes.CorDourado}"
+                ImagemCor="{x:Static utilidade:Constantes.CorDourado}"
+                ImagemUrl="{x:Static utilidade:Constantes.ImagemCodigoQr}"/>
+            <componente:Botao
+                x:Name="BotaoDesconectar"
+                HorizontalOptions="FillAndExpand"
+                Texto="Desconectar"
+                TextoCor="White"
+                ImagemCor="White"
+                ImagemUrl="{x:Static utilidade:Constantes.ImagemVoltar}"/>
+
+        </StackLayout>
+    </pagina:_PaginaBase.Content>
+</pagina:_PaginaBase>

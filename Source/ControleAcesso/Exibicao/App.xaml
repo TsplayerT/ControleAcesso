@@ -2,12 +2,4 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ControleAcesso.Controle.App">
 
-    <Application.Resources>
-        <ResourceDictionary>
-            <Color x:Key="CorPadrao">#5867dd</Color>
-            <Style TargetType="NavigationPage">
-                <Setter Property="BarBackgroundColor" Value="{StaticResource CorPadrao}" />
-            </Style>
-        </ResourceDictionary>
-    </Application.Resources>
 </Application>

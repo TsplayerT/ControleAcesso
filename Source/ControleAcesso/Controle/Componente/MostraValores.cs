@@ -92,6 +92,8 @@ namespace ControleAcesso.Controle.Componente
         {
             InitializeComponent();
 
+            TrocarFundoAoCarregarHabilitado = false;
+
             if (MostrarItemNenhumaCorrespondencia)
             {
                 Atualizar();
@@ -112,14 +114,16 @@ namespace ControleAcesso.Controle.Componente
                     {
                         TrocarCorFundoAoMudarHabilitado = false,
                         Habilitado = false,
+                        TipoCor = Enumeradores.TipoColoracao.SemFundo,
+                        FundoCorAtual = Color.Transparent,
+                        FundoCorPadrao = Color.Transparent,
                         Texto = Constantes.TextoCarregando,
-                        TextoCor = Constantes.CorCinzaEscuro,
-                        TextoTamanho = 14.0,
+                        TextoCor = Constantes.CorPadrao,
+                        TextoTamanho = 16.0,
                         DescricaoVisivel = false,
                         AlinhamentoInterno = new Thickness(20, 0, 0, 0),
-                        FundoCorAtual = Color.Transparent,
                         Carregando = true,
-                        CarregandoCor = Color.Gray,
+                        CarregandoCor = Constantes.CorPadrao,
                         Objeto = Constantes.NaoSelecionar
                     }
                 };
@@ -131,6 +135,9 @@ namespace ControleAcesso.Controle.Componente
             {
                 var itemDescricao = new ItemDescricao
                 {
+                    TipoCor = Enumeradores.TipoColoracao.SemFundo,
+                    FundoCorAtual = Color.Transparent,
+                    FundoCorPadrao = Color.Transparent,
                     Texto = x.Texto,
                     TextoCor = TextoCor,
                     TextoTamanho = TextoTamanho,
@@ -140,7 +147,6 @@ namespace ControleAcesso.Controle.Componente
                     DescricaoVisivel = !string.IsNullOrEmpty(x.Descricao),
                     AlinhamentoInterno = new Thickness(20, 5, 0, 5),
                     AlinhamentoExterno = default,
-                    FundoCorAtual = Color.Transparent,
                     Objeto = x.Objeto
                 };
 
@@ -162,12 +168,14 @@ namespace ControleAcesso.Controle.Componente
                 {
                     new ItemDescricao
                     {
-                        Texto = Constantes.TextoNenhumaCorrespondencia,
-                        TextoCor = Constantes.CorCinzaEscuro,
-                        TextoTamanho = 14.0,
+                        TipoCor = Enumeradores.TipoColoracao.SemFundo,
+                        FundoCorAtual = Color.Transparent,
+                        FundoCorPadrao = Color.Transparent,
+                        Texto = Constantes.SemInformacao,
+                        TextoCor = Constantes.CorPadrao,
+                        TextoTamanho = 16.0,
                         DescricaoVisivel = false,
                         AlinhamentoInterno = new Thickness(20, 0, 0, 0),
-                        FundoCorAtual = Color.Transparent,
                         Objeto = Constantes.NaoSelecionar
                     }
                 };

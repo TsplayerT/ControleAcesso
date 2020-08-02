@@ -1,14 +1,10 @@
-﻿using ControleAcesso.Controle.Componente;
-using ControleAcesso.Controle.Navegacao;
-using ControleAcesso.Controle;
-using ControleAcesso.Controle.Pagina.Inicio;
-using ControleAcesso.Controle.Pagina.OrdemServico;
+﻿using ControleAcesso.Controle;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using ControleAcesso.Controle.Pagina.Inventariado.PesquisarItem;
+using ControleAcesso.Controle.Pagina;
 using ControleAcesso.Servico.Api;
 using Xamarin.Forms;
 
@@ -18,32 +14,18 @@ namespace ControleAcesso.Utilidade
     {
         public static string CaminhoConexao => "https://tour.arenacorinthians.com.br/";
 
-        public static Color CorBarra => Color.FromHex("#000000");
         public static Color CorPadrao => Color.FromHex("#000000");
         public static Color CorAzulEscuro => Color.FromHex("#5867dd");
         public static Color CorCinzaClaro => Color.FromHex("#f0f0f0");//#e1e1e1//#e8f0fe//#EEEEEE
         public static Color CorCinzaClaroAlternativo => Color.FromHex("#c8c8c8");
-        public static Color CorCinzaAlternativo => Color.FromHex("#b4b4b4");
-        public static Color CorCinzaEscuro => Color.FromHex("#7d7d7d");
-        public static Color CorCinzaEscuroAlternativo => Color.FromHex("#a5a5a5");
-        public static Color CorDesativado => Color.FromHex("#c8c8c8");
-        public static Color CorBotaoTocado => Color.FromHex("#4454c9");
-        public static Color CorEntrada => Color.FromHex("#ababab");
-        public static Color CorVerdeAmarelado => Color.FromHex("#d2ffa0");//#4ef565//#a4df73
-        public static Color CorVerdeBonito => Color.FromHex("#4baf4b");// igual a cor do TrabalharOffline, por enquanto 
-        public static Color CorVermelhoBonito => Color.FromHex("#c83232");// igual a cor do TrabalharOnline, por enquanto 
-        public static Color CorVermelhoForte => Color.FromHex("#ff7d7d");
-        public static Color CorVermelhoSalmao => Color.FromHex("#fa7d7d");
-        public static Color CorLaranjaClaro => Color.FromHex("#f5a536");
+        public static Color CorCinzaAlternativo => Color.FromHex("#a0a0a0");//#b4b4b4
+        public static Color CorDourado => Color.FromHex("#ffc832");//#fdc101
+        public static Color CorDesativado => Color.FromHex("#7d7d7d");//#c8c8c8//#6e6e6e//#7d7d7d
+        public static Color CorDesativadoFraco => Color.FromHex("#c8c8c8");
 
-        public static string TituloOrdemServico => "Ordem de Serviço";
         public static string TextoCarregando => "Carregando...";
-        public static string TextoSemItens => "Sem nenhum item";
-        public static string TextoNenhumaInformacao => "Sem nenhuma informação";
         public static string TextoEmDesenvolvimento => "Em Desenvolvimento";
-        public static string TextoNenhumaCorrespondencia => "Nenhuma correspondência";
-        public static string TextoMarcaCampoFixo => "Selecione uma opção";
-        public static string TextoMarcaCampoDinamico => "Insira um valor";
+        public static string SemInformacao => "Sem informação";
         public static string TextoSemConexao => "Não foi possível conectar com o sistema, por favor verifique sua internet e tente novamente!";
 
         public static string FormatoDataMesAno => "dd/MM/yyyy";
@@ -51,7 +33,6 @@ namespace ControleAcesso.Utilidade
 
         public static object NaoSelecionar => Application.Current;
         public static ExpressionEqualityComparer Comparador => new ExpressionEqualityComparer();
-        public static Action AcaoEmDesenvolvimento => async () => await Estrutura.Mensagem(TextoEmDesenvolvimento).ConfigureAwait(false);
         public static TaskScheduler TaskScheduler => SynchronizationContext.Current != null ? TaskScheduler.FromCurrentSynchronizationContext() : TaskScheduler.Current;
 
         public static Func<_PaginaBase, Task<bool>> AcaoConfirmacaoSairTela => async pagina =>
@@ -73,7 +54,7 @@ namespace ControleAcesso.Utilidade
 
                 return false;
             }
-            else if (Cache.AcaoAntesMudarPaginaHabilitado.ContemChave(pagina))
+            if (Cache.AcaoAntesMudarPaginaHabilitado.ContemChave(pagina))
             {
                 var resposta = await Estrutura.Mensagem("Tem certeza que deseja sair dessa página? Os dados serão perdidos!", "Prosseguir").ConfigureAwait(false);
 
@@ -83,12 +64,6 @@ namespace ControleAcesso.Utilidade
 
                     //usado para remover a página atual que é a primeira da Navegacao (RootPage)
                     await pagina.PaginaAoSairTela.Remover(pagina).ConfigureAwait(false);
-                }
-                else
-                {
-                    //variáveis auxiliares para ajustar os botões do MenuLateral para a tela da Manutenção da Base
-                    Cache.TipoReservaPrioritario = Cache.UltimoTipoReservaPrioritario;
-                    Cache.UltimoTipoReservaPrioritario = Enumeradores.TipoPagina.Nenhum;
                 }
 
                 return resposta;
@@ -109,78 +84,20 @@ namespace ControleAcesso.Utilidade
             }
         };
 
-        public static ItemDescricao ItemDescricaoBase => new ItemDescricao
-        {
-            TextoCor = Color.Gray,
-            TextoTamanho = 12,
-            FundoCorAtual = Color.Transparent,
-            Objeto = NaoSelecionar
-        };
-        public static ItemDescricao ItemDescricaoNenhumaCorrespondencia => new ItemDescricao
-        {
-            FundoCorAtual = Color.Transparent,
-            Texto = TextoNenhumaCorrespondencia,
-            TextoCor = CorCinzaEscuro,
-            TextoTamanho = 12,
-            DescricaoVisivel = false,
-            Objeto = NaoSelecionar
-        };
-        public static ItemDescricao ItemDescricaoCarregando => new ItemDescricao
-        {
-            FundoCorAtual = Color.Transparent,
-            Texto = TextoCarregando,
-            TextoCor = CorCinzaEscuro,
-            DescricaoVisivel = false,
-            TextoTamanho = 12,
-            Carregando = true,
-            CarregandoCor = Color.Gray,
-            Objeto = NaoSelecionar
-        };
-
         public static Dictionary<Enumeradores.TipoPagina, _PaginaBase> Paginas => new Dictionary<Enumeradores.TipoPagina, _PaginaBase>
         {
             { Enumeradores.TipoPagina.Login, new Login() },
             {
-                Enumeradores.TipoPagina.Opcoes, new Opcoes
+                Enumeradores.TipoPagina.ConsultarIngresso, new ConsultarIngresso
                 {
-                    Title = "Central de Ativos",
-                    FuncaoAoSairTela = () => Enumeradores.TipoPagina.Empresa
+                    Title = "Consulta de Ingresso",
+                    FuncaoAoSairTela = () => Enumeradores.TipoPagina.Login
                 }
             },
             {
-                Enumeradores.TipoPagina.Pesquisar, new Pesquisar
+                Enumeradores.TipoPagina.DadosIngresso, new DadosIngresso
                 {
-                    Title = "Pesquisar"
-                }
-            },
-            {
-                Enumeradores.TipoPagina.ListaItens, new ListaItens
-                {
-                    Title = TituloOrdemServico
-                }
-            },
-            {
-                Enumeradores.TipoPagina.ListaMotivo, new ListaMotivo
-                {
-                    Title = TituloOrdemServico
-                }
-            },
-            {
-                Enumeradores.TipoPagina.OutrasInformacoes, new OutrasInformacoes
-                {
-                    Title = TituloOrdemServico
-                }
-            },
-            {
-                Enumeradores.TipoPagina.Finalizacao, new Finalizacao
-                {
-                    Title = TituloOrdemServico
-                }
-            },
-            {
-                Enumeradores.TipoPagina.Resultado, new Resultado
-                {
-                    Title = "Resultado"
+                    Title = "Dados do Ingresso"
                 }
             }
         };
@@ -221,22 +138,7 @@ namespace ControleAcesso.Utilidade
         public static string ImagemReceber => Simplificadores.RecursoImagemVetorial("download");
         public static string ImagemNegativo => Simplificadores.RecursoImagemVetorial("times");
         public static string ImagemPrevia => Simplificadores.RecursoImagemVetorial("file_powerpoint");
-
-        public static List<string> ListaEmailDesenvolvedores => new List<string>
-        {
-            "caique@pontualsys.com.br"
-        };
-
-        public static Dictionary<Enumeradores.TipoStatus, string> ListaStatus => new Dictionary<Enumeradores.TipoStatus, string>
-        {
-            { Enumeradores.TipoStatus.Novo, "Novo" },
-            { Enumeradores.TipoStatus.Nao_Inventariado, "A inventáriar" },
-            { Enumeradores.TipoStatus.Baixado, "Baixado" },
-            { Enumeradores.TipoStatus.Inserido, "Inserido" },
-            { Enumeradores.TipoStatus.Alterado, "Inventariado" },
-            { Enumeradores.TipoStatus.Revisado, "Revisado" },
-            { Enumeradores.TipoStatus.Inserido_Inventario, "Inventário inserido" },
-            { Enumeradores.TipoStatus.Alterado_Inventario, "Inventário alterado" }
-        };
+        public static string ImagemUsuario => Simplificadores.RecursoImagemVetorial("user");
+        public static string ImagemFlash=> Simplificadores.RecursoImagemVetorial("lightbulb");
     }
 }

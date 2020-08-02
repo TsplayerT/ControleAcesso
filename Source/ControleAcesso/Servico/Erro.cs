@@ -4,9 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using ControleAcesso.Controle;
-using ControleAcesso.Controle.Navegacao;
+using ControleAcesso.Controle.Pagina;
+using Newtonsoft.Json;
 using ControleAcesso.Servico.Api;
 using ControleAcesso.Utilidade;
 using Xamarin.Forms;
@@ -174,7 +174,6 @@ namespace ControleAcesso.Servico
             switch (parametrosEssenciais.Item1)
             {
                 case HttpStatusCode.Unauthorized:
-                    Cache.ConectarAutomaticamente = true;
                     await Estrutura.Mensagem($"Sua autorização expirou, {(Cache.UsuarioLogado != null ? "você será reconectado automáticamente" : "por favor conecte-se novamente")}!").ConfigureAwait(false);
                     await Estrutura.MudarPagina(new Login()).ConfigureAwait(false);
 

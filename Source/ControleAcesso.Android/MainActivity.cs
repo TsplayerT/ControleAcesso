@@ -4,7 +4,7 @@ using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
-using ControleAcesso.Controle.Navegacao;
+using ControleAcesso.Controle;
 using ControleAcesso.Utilidade;
 
 namespace ControleAcesso.Droid
@@ -33,8 +33,7 @@ namespace ControleAcesso.Droid
             Platform.Init(this, savedInstanceState);
             Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
-            LoadApplication(new Controle.App());
-            Window.SetStatusBarColor(Android.Graphics.Color.Argb(Constantes.CorBarra.A.TrocarEscala(1, 255), Constantes.CorBarra.R.TrocarEscala(1, 255), Constantes.CorBarra.G.TrocarEscala(1, 255), Constantes.CorBarra.B.TrocarEscala(1, 255)));
+            LoadApplication(new App());
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {

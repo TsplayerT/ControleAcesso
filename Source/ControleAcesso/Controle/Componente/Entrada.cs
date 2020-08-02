@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using ControleAcesso.Utilidade;
 using FFImageLoading.Transformations;
 using FFImageLoading.Work;
-using ControleAcesso.Utilidade;
 using Xamarin.Forms;
 
 namespace ControleAcesso.Controle.Componente
@@ -15,7 +15,7 @@ namespace ControleAcesso.Controle.Componente
         {
             new TintTransformation
             {
-                HexColor = "#ffffff",
+                HexColor = "#000000",
                 EnableSolidColor = true
             }
         });
@@ -225,11 +225,6 @@ namespace ControleAcesso.Controle.Componente
 
                     MudarTextoConformeMascara();
                     break;
-            }
-
-            if (TrocarCorFundoAoTextoValido)
-            {
-                FundoCorAtual = string.IsNullOrEmpty(Texto) ? Constantes.CorCinzaClaro : Preenchido() ? Constantes.CorVerdeAmarelado : Constantes.CorVermelhoForte;
             }
 
             AcaoMudandoTexto?.Invoke();

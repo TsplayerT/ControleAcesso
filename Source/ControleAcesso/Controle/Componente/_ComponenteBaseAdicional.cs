@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using ControleAcesso.Controle.Navegacao;
 using Xamarin.Forms;
 
 namespace ControleAcesso.Controle.Componente
@@ -31,7 +30,7 @@ namespace ControleAcesso.Controle.Componente
         {
             get => (Dictionary<string, Action>)GetValue(OpcoesAbrirMenuProperty);
             set => SetValue(OpcoesAbrirMenuProperty, value);
-        } 
+        }
 
         public _ComponenteBaseAdicional()
         {
@@ -42,25 +41,13 @@ namespace ControleAcesso.Controle.Componente
 
         private static async void OpcoesImagemUrlPropertyChanged(BindableObject bindable, object oldvalue, object newvalue)
         {
-            if (bindable != null && newvalue is string valor &&!string.IsNullOrEmpty(valor))
+            if (bindable != null && newvalue is string valor)
             {
                 switch (bindable.GetType().Name)
                 {
-                    case nameof(EditorAdicional):
-                        ((EditorAdicional)bindable).Opcoes.Visivel = true;
-                        ((EditorAdicional)bindable).Opcoes.Url = valor;
-                        break;
                     case nameof(EntradaAdicional):
-                        ((EntradaAdicional)bindable).Opcoes.Visivel = true;
+                        ((EntradaAdicional)bindable).Opcoes.Visivel = !string.IsNullOrEmpty(valor);
                         ((EntradaAdicional)bindable).Opcoes.Url = valor;
-                        break;
-                    case nameof(AutoCompletarAdicional):
-                        ((AutoCompletarAdicional)bindable).Opcoes.Visivel = true;
-                        ((AutoCompletarAdicional)bindable).Opcoes.Url = valor;
-                        break;
-                    case nameof(ChaveValorAdicional):
-                        ((ChaveValorAdicional)bindable).Opcoes.Visivel = true;
-                        ((ChaveValorAdicional)bindable).Opcoes.Url = valor;
                         break;
                     default:
                         await Estrutura.Mensagem($"ADICIONE {bindable.GetType().Name} NO MÉTODO {nameof(OpcoesImagemUrlPropertyChanged)} EM {nameof(_ComponenteBaseAdicional)}").ConfigureAwait(false);
@@ -74,17 +61,8 @@ namespace ControleAcesso.Controle.Componente
             {
                 switch (bindable.GetType().Name)
                 {
-                    case nameof(EditorAdicional):
-                        ((EditorAdicional)bindable).Opcoes.AcaoInicial = acao;
-                        break;
                     case nameof(EntradaAdicional):
                         ((EntradaAdicional)bindable).Opcoes.AcaoInicial = acao;
-                        break;
-                    case nameof(AutoCompletarAdicional):
-                        ((AutoCompletarAdicional)bindable).Opcoes.AcaoInicial = acao;
-                        break;
-                    case nameof(ChaveValorAdicional):
-                        ((ChaveValorAdicional)bindable).Opcoes.AcaoInicial = acao;
                         break;
                     default:
                         await Estrutura.Mensagem($"ADICIONE {bindable.GetType().Name} NO MÉTODO {nameof(OpcoesAcaoPropertyChanged)} EM {nameof(_ComponenteBaseAdicional)}").ConfigureAwait(false);
@@ -98,17 +76,8 @@ namespace ControleAcesso.Controle.Componente
             {
                 switch (bindable.GetType().Name)
                 {
-                    case nameof(EditorAdicional):
-                        ((EditorAdicional)bindable).Opcoes.AcaoEscolha = acao;
-                        break;
                     case nameof(EntradaAdicional):
                         ((EntradaAdicional)bindable).Opcoes.AcaoEscolha = acao;
-                        break;
-                    case nameof(AutoCompletarAdicional):
-                        ((AutoCompletarAdicional)bindable).Opcoes.AcaoEscolha = acao;
-                        break;
-                    case nameof(ChaveValorAdicional):
-                        ((ChaveValorAdicional)bindable).Opcoes.AcaoEscolha = acao;
                         break;
                     default:
                         await Estrutura.Mensagem($"ADICIONE {bindable.GetType().Name} NO MÉTODO {nameof(OpcoesAcaoEscolhaPropertyChanged)} EM {nameof(_ComponenteBaseAdicional)}").ConfigureAwait(false);
@@ -116,29 +85,20 @@ namespace ControleAcesso.Controle.Componente
                 }
             }
         }
-        private static async void OpcoesVisivelPropertyChanged(BindableObject bindable, object oldvalue, object newvalue)
+        private static async void OpcoesVisivelPropertyChanged(BindableObject bindable, object oldvalue, object newvalue) => await Device.InvokeOnMainThreadAsync(async () =>
         {
             if (bindable != null && newvalue is bool opcoesVisivel)
             {
                 switch (bindable)
                 {
-                    case EditorAdicional editorAdicional:
-                        editorAdicional.Opcoes.Visivel = opcoesVisivel;
-                        break;
                     case EntradaAdicional entradaAdicional:
                         entradaAdicional.Opcoes.Visivel = opcoesVisivel;
-                        break;
-                    case AutoCompletarAdicional autoCompletarAdicional:
-                        autoCompletarAdicional.Opcoes.Visivel = opcoesVisivel;
-                        break;
-                    case ChaveValorAdicional chaveValorAdicional:
-                        chaveValorAdicional.Opcoes.Visivel = opcoesVisivel;
                         break;
                     default:
                         await Estrutura.Mensagem($"ADICIONE {bindable.GetType().Name} NO MÉTODO {nameof(OpcoesVisivelPropertyChanged)} EM {nameof(_ComponenteBaseAdicional)}").ConfigureAwait(false);
                         break;
                 }
             }
-        }
+        }).ConfigureAwait(false);
     }
 }

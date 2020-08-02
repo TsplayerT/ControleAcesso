@@ -7,8 +7,6 @@ using System.Net;
 using System.Threading.Tasks;
 using ControleAcesso.Controle;
 using ControleAcesso.Controle.Componente;
-using ControleAcesso.Controle.Navegacao;
-using ControleAcesso.Servico.Api;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -222,7 +220,7 @@ namespace ControleAcesso.Utilidade
         {
             _PaginaBase pagina = null;
 
-            if (Cache.Paginas?.TryGetValue(tipo, out pagina) ?? false)
+            if (Constantes.Paginas?.TryGetValue(tipo, out pagina) ?? false)
             {
                 if (acaoAlteracaoInicial != null && pagina is T paginaConvertida)
                 {
@@ -238,7 +236,7 @@ namespace ControleAcesso.Utilidade
         {
             _PaginaBase pagina = null;
 
-            if (Cache.Paginas?.TryGetValue(tipo, out pagina) ?? false)
+            if (Constantes.Paginas?.TryGetValue(tipo, out pagina) ?? false)
             {
                 if (acaoAlteracaoInicial != null && pagina is T paginaConvertida)
                 {

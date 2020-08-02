@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
-using ControleAcesso.Controle.Navegacao;
 using ControleAcesso.Utilidade;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -74,7 +73,7 @@ namespace ControleAcesso.Controle.Componente
             get => (bool)GetValue(HabilitadoAnteriorProperty);
             set => SetValue(HabilitadoAnteriorProperty, value);
         }
-        public static BindableProperty FundoCorPadraoProperty = BindableProperty.Create(nameof(FundoCorPadrao), typeof(Color), typeof(_ComponenteBase), Constantes.CorCinzaAlternativo, propertyChanged: FundoCorPadraoPropertyChanged);
+        public static BindableProperty FundoCorPadraoProperty = BindableProperty.Create(nameof(FundoCorPadrao), typeof(Color), typeof(_ComponenteBase), Constantes.CorCinzaClaro, propertyChanged: FundoCorPadraoPropertyChanged);
         public virtual Color FundoCorPadrao
         {
             get => (Color)GetValue(FundoCorPadraoProperty);
@@ -99,13 +98,13 @@ namespace ControleAcesso.Controle.Componente
             get => (string)GetValue(TituloProperty);
             set => SetValue(TituloProperty, value);
         }
-        public static BindableProperty TituloCorProperty = BindableProperty.Create(nameof(TituloCor), typeof(Color), typeof(_ComponenteBaseAdicional), Constantes.CorCinzaEscuro);
+        public static BindableProperty TituloCorProperty = BindableProperty.Create(nameof(TituloCor), typeof(Color), typeof(_ComponenteBaseAdicional), Constantes.CorPadrao);
         public virtual Color TituloCor
         {
             get => (Color)GetValue(TituloCorProperty);
             set => SetValue(TituloCorProperty, value);
         }
-        public static BindableProperty TituloTamanhoProperty = BindableProperty.Create(nameof(TituloTamanho), typeof(double), typeof(_ComponenteBase), 14.0);
+        public static BindableProperty TituloTamanhoProperty = BindableProperty.Create(nameof(TituloTamanho), typeof(double), typeof(_ComponenteBase), 16.0);
         public virtual double TituloTamanho
         {
             get => (double)GetValue(TituloTamanhoProperty);
@@ -137,6 +136,12 @@ namespace ControleAcesso.Controle.Componente
             get => (Color)GetValue(TextoCorProperty);
             set => SetValue(TextoCorProperty, value);
         }
+        public static BindableProperty AcaoUnicaMudarTextoCorProperty = BindableProperty.Create(nameof(AcaoUnicaMudarTextoCor), typeof(Action), typeof(_ComponenteBase), default(Action));
+        public virtual Action AcaoUnicaMudarTextoCor
+        {
+            get => (Action)GetValue(AcaoUnicaMudarTextoCorProperty);
+            set => SetValue(AcaoUnicaMudarTextoCorProperty, value);
+        }
         public static BindableProperty TextoTamanhoProperty = BindableProperty.Create(nameof(TextoTamanho), typeof(double), typeof(_ComponenteBase), 16.0);
         public virtual double TextoTamanho
         {
@@ -157,7 +162,7 @@ namespace ControleAcesso.Controle.Componente
             set => SetValue(TextoMarcaCorProperty, value);
         }
 
-        public static BindableProperty TecladoProperty = BindableProperty.Create(nameof(Teclado), typeof(Keyboard), typeof(_ComponenteBase), Keyboard.Create(KeyboardFlags.CapitalizeCharacter));
+        public static BindableProperty TecladoProperty = BindableProperty.Create(nameof(Teclado), typeof(Keyboard), typeof(_ComponenteBase), Keyboard.Default);
         public virtual Keyboard Teclado
         {
             get => (Keyboard)GetValue(TecladoProperty);
@@ -243,12 +248,6 @@ namespace ControleAcesso.Controle.Componente
             get => (List<Tuple<_ComponenteBase, Expression<Action>>>)GetValue(AcaoMudarCarregandoProperty);
             set => SetValue(AcaoMudarCarregandoProperty, value);
         }
-        public static BindableProperty LimparFundoQuandoMudarTextoProperty = BindableProperty.Create(nameof(LimparFundoQuandoMudarTexto), typeof(Action), typeof(_ComponenteBase), defaultValueCreator: LimparFundoQuandoMudarTextoDefaultValueCreator);
-        public virtual Action LimparFundoQuandoMudarTexto
-        {
-            get => (Action)GetValue(LimparFundoQuandoMudarTextoProperty);
-            set => SetValue(LimparFundoQuandoMudarTextoProperty, value);
-        }
         public static BindableProperty LimparFundoQuandoMudarTextoHabilitadoProperty = BindableProperty.Create(nameof(LimparFundoQuandoMudarTextoHabilitado), typeof(bool), typeof(_ComponenteBase), true);
         public virtual bool LimparFundoQuandoMudarTextoHabilitado
         {
@@ -291,6 +290,12 @@ namespace ControleAcesso.Controle.Componente
         {
             get => (bool)GetValue(CarregandoProperty);
             set => SetValue(CarregandoProperty, value);
+        }
+        public static BindableProperty TrocarFundoAoCarregarHabilitadoProperty = BindableProperty.Create(nameof(TrocarFundoAoCarregarHabilitado), typeof(bool), typeof(_ComponenteBase), true);
+        public virtual bool TrocarFundoAoCarregarHabilitado
+        {
+            get => (bool)GetValue(TrocarFundoAoCarregarHabilitadoProperty);
+            set => SetValue(TrocarFundoAoCarregarHabilitadoProperty, value);
         }
         public static BindableProperty CarregandoCorProperty = BindableProperty.Create(nameof(CarregandoCor), typeof(Color), typeof(_ComponenteBase), Color.White);
         public virtual Color CarregandoCor
@@ -405,30 +410,9 @@ namespace ControleAcesso.Controle.Componente
             //variável "alterado" impede que as funções adicionais sejam executadas desnecessariamente
             if (alterado)
             {
-                if (LimparFundoQuandoMudarTextoHabilitado)
-                {
-                    LimparFundoQuandoMudarTexto?.Invoke();
-                }
-
                 MudandoValor?.Invoke();
                 AcaoMudandoTexto?.Invoke();
             }
-        }
-
-        private static object LimparFundoQuandoMudarTextoDefaultValueCreator(BindableObject bindable)
-        {
-            if (bindable is _ComponenteBase objeto)
-            {
-                return new Action(() =>
-                {
-                    if (objeto.FundoCorAtual == Constantes.CorVermelhoSalmao)
-                    {
-                        objeto.FundoCorAtual = objeto.FundoCorPadrao;
-                    }
-                });
-            }
-
-            return default;
         }
 
         private static void FundoCorPadraoPropertyChanged(BindableObject bindable, object oldvalue, object newvalue)
@@ -454,7 +438,15 @@ namespace ControleAcesso.Controle.Componente
             }
         }
 
-        private static async void HabilitadoPropertyChanged(BindableObject bindable, object oldvalue, object newvalue)
+        private static async void TituloPropertyChanged(BindableObject bindable, object oldvalue, object newvalue)
+        {
+            if (bindable is _ComponenteBase objeto && await objeto.PegarFilho<Rotulo>().ConfigureAwait(false) is Rotulo rotulo && newvalue is string valor)
+            {
+                rotulo.IsVisible = !string.IsNullOrEmpty(valor);
+            }
+        }
+
+        private static async void HabilitadoPropertyChanged(BindableObject bindable, object oldvalue, object newvalue) => await Device.InvokeOnMainThreadAsync(async () =>
         {
             if (bindable is _ComponenteBase objeto && newvalue is bool habilitado)
             {
@@ -462,7 +454,7 @@ namespace ControleAcesso.Controle.Componente
 
                 if (objeto.TrocarCorFundoAoMudarHabilitado)
                 {
-                    objeto.FundoCorAtual = habilitado ? objeto.FundoCorPadrao : Constantes.CorDesativado;
+                    objeto.FundoCorAtual = habilitado ? objeto.FundoCorPadrao : objeto.GetType() == typeof(Botao) ? Constantes.CorDesativado : Constantes.CorDesativadoFraco;
                 }
 
                 if (objeto.PermitirTrocarEntradaHabilitada)
@@ -479,17 +471,9 @@ namespace ControleAcesso.Controle.Componente
                     await Estrutura.Mensagem($"{nameof(_ComponenteBase)}_{nameof(HabilitadoPropertyChanged)}: {ex.Message}\n\n{ex}").ConfigureAwait(false);
                 }
             }
-        }
+        }).ConfigureAwait(false);
 
-        private static async void TituloPropertyChanged(BindableObject bindable, object oldvalue, object newvalue)
-        {
-            if (bindable is _ComponenteBase objeto && await objeto.PegarFilho<Rotulo>().ConfigureAwait(false) is Rotulo rotulo && newvalue is string valor)
-            {
-                rotulo.IsVisible = !string.IsNullOrEmpty(valor);
-            }
-        }
-
-        private static async void CarregandoPropertyChanged(BindableObject bindable, object oldvalue, object newvalue)
+        private static async void CarregandoPropertyChanged(BindableObject bindable, object oldvalue, object newvalue) => await Device.InvokeOnMainThreadAsync(async () =>
         {
             if (bindable is _ComponenteBase objeto && newvalue is bool carregando)
             {
@@ -498,12 +482,15 @@ namespace ControleAcesso.Controle.Componente
                     objeto.AcaoInicialUnicaMudarCarregando?.Invoke();
                 }
 
-                if (carregando)
+                if (objeto.TrocarFundoAoCarregarHabilitado)
                 {
-                    objeto.HabilitadoAnterior = objeto.Habilitado;
-                }
+                    if (carregando)
+                    {
+                        objeto.HabilitadoAnterior = objeto.Habilitado;
+                    }
 
-                objeto.Habilitado = !carregando && objeto.HabilitadoAnterior;
+                    objeto.Habilitado = !carregando && objeto.HabilitadoAnterior;
+                }
 
                 if (objeto.AcaoMudarCarregandoHabilitado)
                 {
@@ -517,7 +504,7 @@ namespace ControleAcesso.Controle.Componente
                     }
                 }
             }
-        }
+        }).ConfigureAwait(false);
 
         private static void AlinhamentoInternoPropertyChanged(BindableObject bindable, object oldvalue, object newvalue)
         {

@@ -20,7 +20,9 @@
 
   <ItemGroup>
     <None Remove="Recurso\Imagens\background.png" />
+    <None Remove="Recurso\Imagens\lightbulb.svg" />
     <None Remove="Recurso\Imagens\logo.svg" />
+    <None Remove="Recurso\Imagens\user.svg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -66,6 +68,7 @@
     <EmbeddedResource Include="Recurso\Imagens\hammer.svg" />
     <EmbeddedResource Include="Recurso\Imagens\hockey_puck.svg" />
     <EmbeddedResource Include="Recurso\Imagens\id_card.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\lightbulb.svg" />
     <EmbeddedResource Include="Recurso\Imagens\list_alt.svg" />
     <EmbeddedResource Include="Recurso\Imagens\lock.svg" />
     <EmbeddedResource Include="Recurso\Imagens\logo.svg" />
@@ -83,6 +86,7 @@
     <EmbeddedResource Include="Recurso\Imagens\times.svg" />
     <EmbeddedResource Include="Recurso\Imagens\upload.svg" />
     <EmbeddedResource Include="Recurso\Imagens\file_powerpoint.svg" />
+    <EmbeddedResource Include="Recurso\Imagens\user.svg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -92,34 +96,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Exibicao\Componente\Busca.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Exibicao\Componente\Entrada.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Exibicao\Componente\Rotulo.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Exibicao\Navegacao\Estrutura.xaml">
+    <EmbeddedResource Update="Exibicao\Estrutura.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Exibicao\Pagina\Backup do Dia.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Exibicao\Pagina\Complemento\LeituraCodigo.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Exibicao\Pagina\Complemento\PaginaTemporaria.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Exibicao\Pagina\PesquisarItem\Resultado.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Exibicao\Pagina\Inventariado\Lista.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Exibicao\Pagina\OrdemServico\ListaMotivo.xaml">
+    <EmbeddedResource Update="Exibicao\Pagina\LeituraCodigo.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -143,15 +129,6 @@
     <None Update="Exibicao\Login.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Update="Exibicao\Navegacao\Estrutura.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="Exibicao\Navegacao\MenuLateral.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="Exibicao\Navegacao\Principal.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
     <None Update="Exibicao\Pagina\Entrada\ListaEmpresa.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
@@ -173,7 +150,7 @@
     <None Update="Exibicao\Pagina\Movimentacao\Destino.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Update="Exibicao\Pagina\Movimentacao\Finalizacao.xaml">
+    <None Update="Exibicao\Pagina\Movimentacao\DadosIngresso.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Update="Exibicao\Pagina\Movimentacao\Lista.xaml">

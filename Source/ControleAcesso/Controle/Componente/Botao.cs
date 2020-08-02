@@ -68,8 +68,11 @@ namespace ControleAcesso.Controle.Componente
                 AcaoFinal?.Invoke();
             };
 
+            AcaoUnicaMudarTextoCor = () => ImagemCor = TextoCor;
+
             //necessário para disparar o evento PropertyChanged
             ImagemCor = Color.White;
+            TextoCor = Color.White;
             //defini o valor padrão
             FundoCorPadrao = Constantes.CorPadrao;
             AcaoInicialUnicaMudarCarregando = () => ImagemVisivel = !Carregando;

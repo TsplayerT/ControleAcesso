@@ -34,7 +34,6 @@
                 Placeholder="{Binding TextoMarca}"
                 PlaceholderColor="{Binding TextoMarcaCor}"
                 BackgroundColor="{Binding FundoCorAtual}"
-                Focused="CampoEntrada_OnFocused"
                 Unfocused="CampoEntrada_OnUnfocused"/>
             <componente:Imagem
                 x:Name="Opcoes"
@@ -45,6 +44,12 @@
                 Visivel="{Binding OpcoesVisivel}"
                 IsVisible="{Binding OpcoesVisivel}"
                 Url="{x:Static utilidade:Constantes.ImagemOpcoes}"/>
+            <ActivityIndicator
+                Scale="0.5"
+                Margin="-5, 2, 0, 0"
+                IsVisible="{Binding Carregando}"
+                IsRunning="{Binding Carregando}"
+                Color="{x:Static utilidade:Constantes.CorPadrao}"/>
         </StackLayout>
     </StackLayout>
 </componente:_ComponenteBaseAdicional>

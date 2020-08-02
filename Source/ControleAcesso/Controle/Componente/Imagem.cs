@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using FFImageLoading.Transformations;
 using FFImageLoading.Work;
-using ControleAcesso.Controle.Navegacao;
 using ControleAcesso.Utilidade;
 
 namespace ControleAcesso.Controle.Componente
@@ -78,13 +77,13 @@ namespace ControleAcesso.Controle.Componente
             Componente.BindingContext = this;
         }
 
-        private static void VisivelPropertyChanged(BindableObject bindable, object oldvalue, object newvalue)
+        private static async void VisivelPropertyChanged(BindableObject bindable, object oldvalue, object newvalue) => await Device.InvokeOnMainThreadAsync(() =>
         {
             if (bindable is Imagem objeto && newvalue is bool visivel)
             {
                 objeto.IsVisible = visivel;
             }
-        }
+        }).ConfigureAwait(false);
         private static void UrlPropertyChanged(BindableObject bindable, object oldvalue, object newvalue)
         {
             if (bindable is Imagem objeto && newvalue is string url)

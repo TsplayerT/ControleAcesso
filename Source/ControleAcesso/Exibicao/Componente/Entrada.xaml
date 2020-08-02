@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:componente="clr-namespace:ControleAcesso.Controle.Componente"
              xmlns:ffImageLoading="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
-             xmlns:utilidade="clr-namespace:ControleAcesso.Utilidade;assembly=ControleAcesso"
+             xmlns:utilidade="clr-namespace:ControleAcesso.Utilidade"
              x:Class="ControleAcesso.Controle.Componente.Entrada">
 
     <StackLayout
@@ -35,6 +35,7 @@
            
             <utilidade:CustomEntry
                 x:Name="CampoEntrada"
+                x:FieldModifier="public"
                 IsNumeric="{Binding TecladoEspecial}"
                 Keyboard="{Binding Teclado}"
                 VerticalOptions="Center"

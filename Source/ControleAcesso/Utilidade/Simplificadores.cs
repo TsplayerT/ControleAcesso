@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using ControleAcesso.Controle;
 using ControleAcesso.Controle.Componente;
-using ControleAcesso.Controle.Navegacao;
-using ControleAcesso.Controle.Pagina.Complemento;
 using ControleAcesso.Servico;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -50,25 +46,6 @@ namespace ControleAcesso.Utilidade
             return new Tuple<bool, string>(camposInvalidos.Any(), textoMensagem);
         }
 
-        public static Tuple<Enumeradores.TipoAcao, Enumeradores.TipoPeriodo, Action<object>> DefinirParametroAcaoAdicional<T1, T2>(Enumeradores.TipoAcao tipoAcao, Enumeradores.TipoPeriodo tipoPeriodo, Action<object> acaoPrimitiva, Func<T1, IEnumerable> funcao, Action<PaginaTemporaria, T2> acaoComposta) => new Tuple<Enumeradores.TipoAcao, Enumeradores.TipoPeriodo, Action<object>>(tipoAcao, tipoPeriodo, valor =>
-        {
-            acaoPrimitiva.Invoke(valor);
-
-            if (valor is PaginaTemporaria pagina)
-            {
-                pagina.Leiaute.Children.OfType<T1>().Select(funcao).OfType<T2>().ForEach(x => acaoComposta.Invoke(pagina, x));
-            }
-        });
-        public static Tuple<Enumeradores.TipoAcao, Enumeradores.TipoPeriodo, Action<object>> DefinirParametroAcaoAdicional(Enumeradores.TipoAcao tipoAcao, Enumeradores.TipoPeriodo tipoPeriodo, string titulo, Func<ObservableCollection<ItemDescricao>> funcao) => DefinirParametroAcaoAdicional<CollectionView, ObservableCollection<ItemDescricao>>(tipoAcao, tipoPeriodo, x => Estrutura.TituloProximaPagina = titulo, x => x.ItemsSource, (p, x) => p.AcaoAparecer = () =>
-        {
-            var listaItens = funcao.Invoke();
-
-            if (!x.Equals(listaItens))
-            {
-                x = listaItens;
-            }
-        });
-
         public static string RecursoImagem(string nomeArquivo) => $"resource://ControleAcesso.Recurso.Imagens.{nomeArquivo}{ExtensaoArquivo(Enumeradores.TipoExtensaoArquivo.Imagem)}";
         public static string RecursoImagemVetorial(string nomeArquivo) => $"resource://ControleAcesso.Recurso.Imagens.{nomeArquivo}{ExtensaoArquivo(Enumeradores.TipoExtensaoArquivo.ImagemVetorial)}";
 
@@ -88,8 +65,6 @@ namespace ControleAcesso.Utilidade
                     return string.Empty;
             }
         }
-
-        public static string Pasta(Enumeradores.TipoPasta tipo) => Convert.ToString(tipo);
 
         public static JsonSerializerSettings JsonSerializerSettingsPadrao => new JsonSerializerSettings
         {
@@ -150,40 +125,6 @@ namespace ControleAcesso.Utilidade
 
         public static async Task LimparCampos(this List<_ComponenteBase> campos, _PaginaBase pagina, Dictionary<_ComponenteBase, bool> camposValores = null) => await Device.InvokeOnMainThreadAsync(() =>
         {
-            campos.Where(x => x.FundoCorAtual == Constantes.CorVermelhoSalmao).ForEach(x => x.FundoCorAtual = x.FundoCorPadrao);
-
-            campos.Where(x => campos.CondicaoCampoValor(camposValores, x, p => x is AutoCompletarAdicional)).OfType<AutoCompletarAdicional>().ForEach(x =>
-            {
-                var mudandoTextoHabilitadoAnterior = x.MudandoTextoHabilitado;
-
-                x.MudandoTextoHabilitado = false;
-                x.Texto = string.Empty;
-                x.ItemSelecionado = null;
-                x.MudandoTextoHabilitado = mudandoTextoHabilitadoAnterior;
-            });
-            campos.Where(x => campos.CondicaoCampoValor(camposValores, x, p => x is ChaveValorAdicional)).OfType<ChaveValorAdicional>().ForEach(x =>
-            {
-                var mudandoTextoHabilitadoAnterior = x.MudandoTextoHabilitado;
-
-                x.MudandoTextoHabilitado = false;
-                x.ItemSelecionado = null;
-                x.Texto = string.Empty;
-                x.TextoValor = string.Empty;
-                x.MudandoTextoHabilitado = mudandoTextoHabilitadoAnterior;
-            });
-            campos.Where(x => campos.CondicaoCampoValor(camposValores, x, p => x is CampoEscolha)).OfType<CampoEscolha>().ForEach(x =>
-            {
-                var mudandoValorHabilitadoAnterior = x.MudandoValorHabilitado;
-                var mudandoItemSelecionadoAnterior = x.MudandoItemSelecionado;
-
-                x.MudandoValorHabilitado = false;
-                x.MudandoItemSelecionado = true;
-                x.Texto = string.Empty;
-                x.ItemSelecionado = null;
-                x.MudandoValorHabilitado = mudandoValorHabilitadoAnterior;
-                x.MudandoItemSelecionado = mudandoItemSelecionadoAnterior;
-            });
-
             campos.Where(x => campos.CondicaoCampoValor(camposValores, x, p => x is Entrada)).OfType<Entrada>().ForEach(x =>
             {
                 x.Texto = string.Empty;
@@ -191,15 +132,6 @@ namespace ControleAcesso.Utilidade
             campos.Where(x => campos.CondicaoCampoValor(camposValores, x, p => x is EntradaAdicional)).OfType<EntradaAdicional>().ForEach(x =>
             {
                 x.Texto = string.Empty;
-            });
-            campos.Where(x => campos.CondicaoCampoValor(camposValores, x, p => x is EditorAdicional)).OfType<EditorAdicional>().ForEach(x =>
-            {
-                x.Texto = string.Empty;
-            });
-
-            campos.Where(x => campos.CondicaoCampoValor(camposValores, x, p => x is CaixaMarcacao)).OfType<CaixaMarcacao>().ForEach(x =>
-            {
-                x.Marcado = false;
             });
             campos.Where(x => campos.CondicaoCampoValor(camposValores, x, p => x is MostraValores)).OfType<MostraValores>().ForEach(x =>
             {
@@ -216,18 +148,9 @@ namespace ControleAcesso.Utilidade
 
             var camposNaoPreenchidos = new List<_ComponenteBase>();
 
-            camposNaoPreenchidos.AddRange(listaCamposTratado.OfType<AutoCompletarAdicional>().Where(x => x.ItemSelecionado == null || x.ItemSelecionado.Objeto == Constantes.NaoSelecionar).ToList());
-            camposNaoPreenchidos.AddRange(listaCamposTratado.OfType<ChaveValorAdicional>().Where(x => x.ItemSelecionado == null || x.ItemSelecionadoManualmente && string.IsNullOrEmpty(x.Texto) || string.IsNullOrEmpty(x.TextoValor)).ToList());
-            camposNaoPreenchidos.AddRange(listaCamposTratado.OfType<CampoEscolha>().Where(x => x.ItemSelecionado == null).ToList());
             camposNaoPreenchidos.AddRange(listaCamposTratado.OfType<Entrada>().Where(x => string.IsNullOrEmpty(x.Texto)).ToList());
             camposNaoPreenchidos.AddRange(listaCamposTratado.OfType<EntradaAdicional>().Where(x => string.IsNullOrEmpty(x.Texto)).ToList());
-            camposNaoPreenchidos.AddRange(listaCamposTratado.OfType<EditorAdicional>().Where(x => string.IsNullOrEmpty(x.Texto)).ToList());
             camposNaoPreenchidos.AddRange(listaCamposTratado.OfType<MostraValores>().Where(x => x.ListaItens == null || !x.ListaItens.Any() || x.ListaItens.Any(p => p.Objeto == Constantes.NaoSelecionar)).ToList());
-
-            if (mostrarMensagem)
-            {
-                camposNaoPreenchidos.ForEach(x => x.FundoCorAtual = Constantes.CorVermelhoSalmao);
-            }
 
             if (mostrarMensagem)
             {

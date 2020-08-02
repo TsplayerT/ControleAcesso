@@ -40,7 +40,7 @@
             HorizontalOptions="Start"
             HorizontalTextAlignment="Start"
             VerticalTextAlignment="Start"
-            TextColor="White"
+            TextColor="{Binding TextoCor}"
             Text="{Binding Texto}"
             FontSize="{Binding TextoTamanho}"/>
     </StackLayout>

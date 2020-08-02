@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using ControleAcesso.Controle.Navegacao;
 using ControleAcesso.Servico.Api;
 using ControleAcesso.Utilidade;
 
@@ -14,11 +13,6 @@ namespace ControleAcesso.Controle
             InitializeComponent();
 
             Parallel.Invoke(() => Conexao = new Conexao(),
-            async () =>
-            {
-                await Cache.CarregarValoresTemporarios(Enumeradores.TipoValorTemporario.Paginas).ConfigureAwait(false);
-                await Cache.CarregarValoresTemporarios(Enumeradores.TipoValorTemporario.ItemsMenu).ConfigureAwait(false);
-            },
             async () => await Estrutura.MudarPagina(Constantes.Paginas[Enumeradores.TipoPagina.Login]).ConfigureAwait(false));
         }
 
