@@ -1,24 +1,43 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
+using ControleAcesso.Controle.Componente;
 using ControleAcesso.Servico.Api;
 using ControleAcesso.Utilidade;
 using Xamarin.Forms;
+using ZXing;
 using ZXing.Mobile;
+using ZXing.Net.Mobile.Forms;
 
 namespace ControleAcesso.Controle.Pagina
 {
     public partial class LeituraCodigo
     {
+        public static BindableProperty LeiauteProperty = BindableProperty.Create(nameof(Leiaute), typeof(View), typeof(LeituraCodigo));
+        public View Leiaute
+        {
+            get => (View)GetValue(LeiauteProperty);
+            set => SetValue(LeiauteProperty, value);
+        }
         public static BindableProperty OpcoesProperty = BindableProperty.Create(nameof(Opcoes), typeof(MobileBarcodeScanningOptions), typeof(LeituraCodigo));
         public MobileBarcodeScanningOptions Opcoes
         {
             get => (MobileBarcodeScanningOptions)GetValue(OpcoesProperty);
             set => SetValue(OpcoesProperty, value);
         }
+        public static BindableProperty PaginaScannerProperty = BindableProperty.Create(nameof(PaginaScanner), typeof(ZXingScannerPage), typeof(LeituraCodigo));
+        public ZXingScannerPage PaginaScanner
+        {
+            get => (ZXingScannerPage)GetValue(PaginaScannerProperty);
+            set => SetValue(PaginaScannerProperty, value);
+        }
+        public static BindableProperty ProximaPaginaProperty = BindableProperty.Create(nameof(ProximaPagina), typeof(Enumeradores.TipoPagina), typeof(LeituraCodigo));
+        public Enumeradores.TipoPagina ProximaPagina
+        {
+            get => (Enumeradores.TipoPagina)GetValue(ProximaPaginaProperty);
+            set => SetValue(ProximaPaginaProperty, value);
+        }
 
         public event EventHandler<string> CodigoObtido;
-        public Enumeradores.TipoPagina ProximaPagina { get; }
-        public Action AcaoFinal { get; }
 
         public LeituraCodigo(Enumeradores.TipoPagina proximaPagina)
         {
@@ -26,35 +45,38 @@ namespace ControleAcesso.Controle.Pagina
 
             ProximaPagina = proximaPagina;
 
-            TarefaEssencial(true);
+            TarefaEssencial();
         }
 
-        public LeituraCodigo(Action acaoFinal)
+        private async void TarefaEssencial()
         {
-            InitializeComponent();
-
-            AcaoFinal = acaoFinal;
-
-            TarefaEssencial(false);
-        }
-
-        private async void TarefaEssencial(bool paginaDefinida)
-        {
-            await Estrutura.MudarPagina(this).ConfigureAwait(false);
-
-            BotaoFlash.AcaoFinal = () => Zxing.IsTorchOn = !Zxing.IsTorchOn;
-            BotaoVoltar.AcaoFinal = async () => await Estrutura.RemoverPaginaAtual().ConfigureAwait(false);
-
-            Appearing += delegate
+            Leiaute = new Grid
             {
-                Zxing.IsScanning = true;
-                Cache.PaginaTemporariaAberta = true;
-            };
-
-            Disappearing += delegate
-            {
-                Zxing.IsScanning = false;
-                Cache.PaginaTemporariaAberta = false;
+                Children =
+                {
+                    new Botao
+                    {
+                        Texto = "Flash",
+                        TextoCor = Constantes.CorPadrao,
+                        ImagemCor = Constantes.CorPadrao,
+                        ImagemUrl = Constantes.ImagemFlash,
+                        FundoCorAtual = Color.White,
+                        VerticalOptions = LayoutOptions.Start,
+                        HorizontalOptions = LayoutOptions.Center,
+                        AcaoInicial = () => PaginaScanner.ToggleTorch()
+                    },
+                    new Botao
+                    {
+                        Texto = "Voltar",
+                        TextoCor = Constantes.CorPadrao,
+                        ImagemCor = Constantes.CorPadrao,
+                        ImagemUrl = Constantes.ImagemVoltar,
+                        FundoCorAtual = Color.White,
+                        VerticalOptions = LayoutOptions.End,
+                        HorizontalOptions = LayoutOptions.Center,
+                        AcaoInicial = async () => await Estrutura.RemoverPaginaAtual().ConfigureAwait(false)
+                    }
+                }
             };
 
             Opcoes = new MobileBarcodeScanningOptions
@@ -62,27 +84,40 @@ namespace ControleAcesso.Controle.Pagina
                 TryHarder = true,
                 AutoRotate = false,
                 UseFrontCameraIfAvailable = false,
-                PossibleFormats = Enum.GetValues(typeof(ZXing.BarcodeFormat)).Cast<ZXing.BarcodeFormat>().ToList()
+                PossibleFormats = new List<BarcodeFormat>
+                {
+                    BarcodeFormat.QR_CODE
+                }
             };
 
-            Zxing.OnScanResult += async resultado =>
+            PaginaScanner = new ZXingScannerPage(Opcoes, Leiaute);
+
+            await Estrutura.MudarPagina(PaginaScanner).ConfigureAwait(false);
+
+            PaginaScanner.OnScanResult += async resultado =>
             {
-                Zxing.IsAnalyzing = false;
+                PaginaScanner.PauseAnalysis();
 
                 CodigoObtido?.Invoke(this, resultado?.Text);
 
-                if (paginaDefinida)
+                if (ProximaPagina != Enumeradores.TipoPagina.Nenhum)
                 {
-                    await Estrutura.MudarPagina(Constantes.Paginas[ProximaPagina]).ConfigureAwait(false);
+                    await ProximaPagina.Abrir().ConfigureAwait(false);
                 }
                 else
                 {
-                    AcaoFinal?.Invoke();
                     await Estrutura.RemoverPaginaAtual().ConfigureAwait(false);
                 }
             };
 
             Componente.BindingContext = this;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            Cache.PaginaTemporariaAberta = true;
         }
 
         protected override bool OnBackButtonPressed()

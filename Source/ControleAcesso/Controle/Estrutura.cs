@@ -129,7 +129,7 @@ namespace ControleAcesso.Controle
             return false;
         }).ConfigureAwait(false);
 
-        public static async Task<bool> MudarPagina(_PaginaBase pagina) => await Device.InvokeOnMainThreadAsync(async () =>
+        public static async Task<bool> MudarPagina(Page pagina) => await Device.InvokeOnMainThreadAsync(async () =>
         {
             if (MudandoPagina || pagina == null)
             {
@@ -159,10 +159,10 @@ namespace ControleAcesso.Controle
                 Cache.PossivelMudarVariavelPaginaTemporariaAberta = true;
             }
 
-            UltimaPagina = pagina;
+            UltimaPagina = pagina is _PaginaBase paginaConvertida ? paginaConvertida : null;
 
             var mainPage = Application.Current.MainPage;
-            var permitidoBarra = ListaPaginaSemBarra.All(x => x != pagina.GetType());
+            var permitidoBarra = pagina.GetType() == typeof(_PaginaBase) && ListaPaginaSemBarra.All(x => x != pagina.GetType());
 
             NavigationPage.SetHasBackButton(pagina, false);
             //NavigationPage.SetHasBackButton(pagina, permitidoMenu);
@@ -173,13 +173,13 @@ namespace ControleAcesso.Controle
                 pagina.Title = TituloProximaPagina;
                 TituloProximaPagina = string.Empty;
             }
+            else if (!string.IsNullOrEmpty(UltimaPagina?.TituloAnterior))
+            {
+                pagina.Title = UltimaPagina?.TituloAnterior;
+            }
             else if (string.IsNullOrEmpty(pagina.Title))
             {
                 pagina.Title = "Controle de Acesso";
-            }
-            else
-            {
-                pagina.Title = pagina.TituloAnterior ?? pagina.Title;
             }
 
             var navegacao = mainPage as NavigationPage ?? new NavigationPage(pagina);

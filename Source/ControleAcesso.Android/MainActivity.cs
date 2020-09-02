@@ -29,7 +29,7 @@ namespace ControleAcesso.Droid
 
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true);
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, savedInstanceState);
-            ZXing.Net.Mobile.Forms.Android.Platform.Init();
+            ZXing.Mobile.MobileBarcodeScanner.Initialize(Application);
             Platform.Init(this, savedInstanceState);
             Xamarin.Forms.Forms.Init(this, savedInstanceState);
 

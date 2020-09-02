@@ -23,13 +23,13 @@
                     TrocarFundoAoCarregarHabilitado="False"
                     Titulo="Dia e Horário do Evento"/>
                 <componente:MostraValores
-                    x:Name="CampoProduto"
-                    TrocarFundoAoCarregarHabilitado="False"
-                    Titulo="Produto"/>
-                <componente:MostraValores
                     x:Name="CampoTipo"
                     TrocarFundoAoCarregarHabilitado="False"
                     Titulo="Tipo"/>
+                <componente:MostraValores
+                    x:Name="CampoProduto"
+                    TrocarFundoAoCarregarHabilitado="False"
+                    Titulo="Produto"/>
                 <componente:MostraValores
                     x:Name="CampoAcesso"
                     TrocarFundoAoCarregarHabilitado="False"

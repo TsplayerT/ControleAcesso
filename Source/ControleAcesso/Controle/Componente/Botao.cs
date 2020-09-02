@@ -68,7 +68,13 @@ namespace ControleAcesso.Controle.Componente
                 AcaoFinal?.Invoke();
             };
 
-            AcaoUnicaMudarTextoCor = () => ImagemCor = TextoCor;
+            AcaoUnicaMudarTextoCor = () =>
+            {
+                if (ImagemCor != TextoCor)
+                {
+                    ImagemCor = TextoCor;
+                }
+            };
 
             //necessário para disparar o evento PropertyChanged
             ImagemCor = Color.White;

@@ -1,38 +1,4 @@
 ﻿<pagina:_PaginaBase xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
-             xmlns:pagina="clr-namespace:ControleAcesso.Controle"
-             xmlns:componente="clr-namespace:ControleAcesso.Controle.Componente"
-             xmlns:utilidade="clr-namespace:ControleAcesso.Utilidade"
-             x:Class="ControleAcesso.Controle.Pagina.LeituraCodigo">
-
-    <pagina:_PaginaBase.Content>
-        <Grid>
-            <zxing:ZXingScannerView
-                x:Name="Zxing"
-                Options="{Binding Opcoes}"
-                VerticalOptions="FillAndExpand"
-                HorizontalOptions="FillAndExpand"/>
-            <zxing:ZXingDefaultOverlay
-                x:Name="Overlay"/>
-            <componente:Botao
-                x:Name="BotaoFlash"
-                Texto="Flash"
-                VerticalOptions="Start"
-                HorizontalOptions="Center"
-                TextoCor="White"
-                ImagemCor="White"
-                ImagemUrl="{x:Static utilidade:Constantes.ImagemFlash}"
-                FundoCorAtual="{x:Static utilidade:Constantes.CorPadrao}"/>
-            <componente:Botao
-                x:Name="BotaoVoltar"
-                Texto="Voltar"
-                VerticalOptions="End"
-                HorizontalOptions="Center"
-                TextoCor="White"
-                ImagemCor="White"
-                ImagemUrl="{x:Static utilidade:Constantes.ImagemVoltar}"
-                FundoCorAtual="{x:Static utilidade:Constantes.CorPadrao}"/>
-        </Grid>
-  </pagina:_PaginaBase.Content>
-</pagina:_PaginaBase>
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:pagina="clr-namespace:ControleAcesso.Controle"
+                    x:Class="ControleAcesso.Controle.Pagina.LeituraCodigo" />

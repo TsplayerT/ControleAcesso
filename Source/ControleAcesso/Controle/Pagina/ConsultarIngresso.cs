@@ -37,8 +37,13 @@ namespace ControleAcesso.Controle.Pagina
 
                     await campos.LimparCampos(this).ConfigureAwait(false);
                 }
-
-                if (System.Diagnostics.Debugger.IsAttached)
+                
+                if (!string.IsNullOrEmpty(Cache.ValorLeitura))
+                {
+                    CampoNumeroIngresso.Texto = Cache.ValorLeitura;
+                }
+                //facilita os testes
+                else if (System.Diagnostics.Debugger.IsAttached && string.IsNullOrEmpty(CampoNumeroIngresso.Texto))
                 {
                     CampoNumeroIngresso.Texto = "b5e3acea3d634f67";
                 }
